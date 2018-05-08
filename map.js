@@ -1,13 +1,12 @@
 function initMap() {
-    var uluru = { lat: -25.363, lng: 131.044 };
+    var uluru = { lat: 46.878619, lng: -96.785535 };
     window.map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 4,
+        zoom: 7,
         center: uluru
     });
 }
 
 function handleFiles(files) {
-    console.log("in handleFiles()");
     if (window.FileReader) {
         getAsText(files[0]);
     } else {
@@ -40,7 +39,6 @@ function processData(csv) {
         }
         lines.push(tarr);
     }
-    console.log(lines);
     markMap(lines);
 }
 
@@ -51,16 +49,80 @@ function errorHandler(evt) {
 }
 
 function markMap(results) {
-    console.log("inMarkMaps")
-    console.log(results.length)
     for (var i = 0; i < results.length; i++) {
         var latitude = results[i][0];
         var longitude = results[i][1];
-        var lux = results[0][2];
+        var lux = parseInt(results[i][2]);
         var latLng = new google.maps.LatLng(latitude, longitude);
         var marker = new google.maps.Marker({
             position: latLng,
+            icon: getCircle(lux),
             map: window.map
         });
     }
+}
+
+function getCircle(lux) {
+    if (lux > 100000) {
+        var circle = {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 12,
+            strokeColor: '#ff00bf',
+            fillColor: '#ff00bf',
+            fillOpacity: 1,
+            strokeWeight: 1
+        }
+    }
+    else if (lux > 80000) {
+        var circle = {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 12,
+            strokeColor: '#ff0000',
+            fillColor: '#ff0000',
+            fillOpacity: 1,
+            strokeWeight: 1
+        }
+    }
+    else if (lux > 60000) {
+        var circle = {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 12,
+            strokeColor: '#ff8300',
+            fillColor: '#ff8300',
+            fillOpacity: 1,
+            strokeWeight: 1
+        }
+    }
+    else if (lux > 40000) {
+        var circle = {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 12,
+            strokeColor: '#ffe100',
+            fillColor: '#ffe100',
+            fillOpacity: 1,
+            strokeWeight: 1
+        }
+    }
+    else if (lux > 20000) {
+        var circle = {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 12,
+            strokeColor: '#d0ff00',
+            fillColor: '#d0ff00',
+            fillOpacity: 1,
+            strokeWeight: 1
+        }
+    }
+    else {
+        var circle = {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 12,
+            strokeColor: '#6aff00',
+            fillColor: '#6aff00',
+            fillOpacity: 1,
+            strokeWeight: 1
+        }
+    }
+
+    return circle;
 }
