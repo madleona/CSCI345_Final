@@ -10,15 +10,16 @@
             height: 400px;
             width: 100%;
         }
-    </style>
-	<label>select local <input type="file" id="file-input"></label>
 
-	<script src="reader.js"</script>
+        #csvFileInput {
+            padding: 20px;
+        }
+    </style>
     <script src="map.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDr9altKq60HSbs2Nb_KH1mZbp3Oxd_GnE&callback=initMap"></script>
 </head>
 <body>
-    <!--input element for uploading a file would go here-->
+    <label>Select File:</label><input type="file" id="csvFileInput" onchange="handleFiles(this.files)" accept=".csv">
     <div id="map"></div>
 </body>
 </html>

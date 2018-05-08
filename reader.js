@@ -3,6 +3,18 @@
  * createReader( results => console.log(results) )
  * where results is an array of objects containing the fields 'longitude', 'latitude', and 'lux';
 */
+function initMap() {
+    var uluru = { lat: -25.363, lng: 131.044 };
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 4,
+        center: uluru
+    });
+    var marker = new google.maps.Marker({
+        position: uluru,
+        map: map
+    });
+}
+
 function createReader(callback) {
 	let input = document.getElementById('file-input'), reader = new FileReader()
 	input.addEventListener('change', _ => {
@@ -14,7 +26,7 @@ function createReader(callback) {
 				results = []
 			
 
-			for (line in lines) {
+			for (line of lines) {
 				let columns = line.split(seperator)
 				results.push({
 					latitude: columns[0],
